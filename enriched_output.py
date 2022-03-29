@@ -4,12 +4,14 @@ from dagster import (
     MetadataValue,
     Output,
     RetryRequested,
+    failure_hook,
     get_dagster_logger,
     job,
     op,
     repository,
     In,
     Nothing,
+    success_hook,
 )
 
 
@@ -87,10 +89,42 @@ def job_with_retry():
     op_with_retry()
 
 
+#------------------------------------------------------#
+# Hooks on failure and on sucess
+
+@success_hook
+def trigger_when_succeed(context):
+    message = f'Op {context.op.name} has succeed'
+    get_dagster_logger().info(message)
+
+
+@failure_hook
+def trigger_when_fails(context):
+    message = f'Op {context.op.name} has failed'
+    get_dagster_logger().info(message)
+
+
+@op
+def binary_op():
+    n = randint(0, 1)
+    if n == 0:
+        raise ValueError
+
+
+@job(hooks={
+            trigger_when_fails,
+            trigger_when_succeed,
+            }
+    )
+def job_with_hooks():
+    binary_op()
+
+
 @repository
 def enriched_repo():
     return [
         simple_job_with_meta,
         asset_job,
         job_with_retry,
+        job_with_hooks,
         ]
