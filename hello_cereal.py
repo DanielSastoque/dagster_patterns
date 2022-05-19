@@ -38,7 +38,7 @@ def display_results(calories, protein, sugars):
 
 
 @job
-def diamond():
+def job_tutorial():
     cereals = download_cereals()
     display_results(**{metric: finder_factory(metric)(cereals) 
                     for metric in ['calories', 'protein', 'sugars']})
@@ -54,15 +54,15 @@ def test_find_highest_calorie_cereal():
 
 
 def test_diamond():
-    res = diamond.execute_in_process()
+    res = job_tutorial.execute_in_process()
     assert res.success
     assert res.output_for_node('find_highest_protein_cereal') == 'Special K'
 
 
 @repository
 def hello_repo():
-    return [diamond]
+    return [job_tutorial]
 
 
 if __name__ == '__main__':
-    result = diamond.execute_in_process()
+    result = job_tutorial.execute_in_process()
