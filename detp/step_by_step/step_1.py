@@ -35,3 +35,7 @@ if __name__ == '__main__':
             metric=metric,
             ),
         )
+
+
+# Pip runs
+# python step_1.py
