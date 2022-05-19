@@ -20,7 +20,7 @@ sample_metadata = {
             'dashboard_url': MetadataValue.url('https://www.google.com/'),
             'raw_count': 0,
             'custom message': 'Here will be a custom message',
-            'syze (bytes)': 100,
+            'size (bytes)': 100,
         }
 
 
@@ -49,7 +49,7 @@ def simple_job_with_meta():
 
 @op(ins={'start': In(Nothing)})
 def asset_event(context):
-    for metric in ['raw_count', 'syze (bytes)']:
+    for metric in ['raw_count', 'size (bytes)']:
         sample_metadata[metric] = randint(0, 100)
 
     context.log_event(
@@ -90,7 +90,7 @@ def job_with_retry():
 
 
 #------------------------------------------------------#
-# Hooks on failure and on sucess
+# Hooks on failure and on success
 
 @success_hook
 def trigger_when_succeed(context):

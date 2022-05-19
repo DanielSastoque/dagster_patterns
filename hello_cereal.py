@@ -1,7 +1,7 @@
 import requests
 import csv
 
-from dagster import job, op, get_dagster_logger
+from dagster import job, op, get_dagster_logger, repository
 
 
 @op
@@ -57,6 +57,11 @@ def test_diamond():
     res = diamond.execute_in_process()
     assert res.success
     assert res.output_for_node('find_highest_protein_cereal') == 'Special K'
+
+
+@repository
+def hello_repo():
+    return [diamond]
 
 
 if __name__ == '__main__':

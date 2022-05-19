@@ -24,7 +24,7 @@ from pyparsing import line, nums
 @op(out={'branch_1': Out(is_required=False),
          'branch_2': Out(is_required=False),
          })
-def branchig_op():
+def branching_op():
     num = random.randint(0, 1)
     if num == 0:
         yield Output(value=1, output_name='branch_1')
@@ -44,7 +44,7 @@ def branch_2_op(_input):
 
 @job
 def branching():
-    branch_1, branch_2 = branchig_op()
+    branch_1, branch_2 = branching_op()
     branch_1_op(branch_1)
     branch_2_op(branch_2)
 
