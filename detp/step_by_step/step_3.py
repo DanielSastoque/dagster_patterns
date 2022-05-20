@@ -55,6 +55,10 @@ def find_highest_whatever(cereals: List[dict], metric: str) -> str:
 
 @job
 def job_tutorial():
+    """
+        This is the job to download cereal data and find
+        the most caloric cereal.
+    """
     find_highest_whatever(
         cereals=download_cereals(),
         )
