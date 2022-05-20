@@ -1,4 +1,3 @@
-from curses import meta
 from typing import List
 import requests
 import csv
@@ -83,7 +82,7 @@ def job_tutorial():
         )
 
 
-#  *Show them the UI and see the scheduled job*
+#  *Show them the UI and make a run, then see the new csv file*
 
 # From the terminal:
 # dagit -f step_5.py -p 3005
